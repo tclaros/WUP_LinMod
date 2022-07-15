@@ -101,7 +101,7 @@ newdata=c(GRIP=94, ARM=88)
 predictSIM = predict.lm(gp, newdata=data.frame(GRIP = 94, ARM = 88))
 print(predictSIM)
 ```
-
+  
 #### now add the model fit to our plot for model.2
   
 ```{r}
