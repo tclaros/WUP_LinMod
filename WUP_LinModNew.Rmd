@@ -35,16 +35,40 @@ data <- read.csv(file="https://onlinestatbook.com/case_studies_rvls/physical_str
 
 ### scatterplot
 
+```{r}
+plot(SIMS~ARM,data=data)
+lmr = lm(SIMS~ARM,data=data)
+abline(lmr)
+```
+
 ### Numerical results
+
+```{r}
+cor(SIMS~ARM,data=data)
+```
 
 
 ### Inferential  (Build model.1)
 
+```{r}
+summary(lmr)
+newdata=c(GRIP=94, ARM=88)
+```
+
 #### Predict at target point
+
+```{r}
+predictSIM = predict.lm(lmr, newdata=data.frame(GRIP = 94, ARM = 88))
+print(predictSIM)
+```
 
 
 #### scatterplot with model fit
-  
+    
+```{r}
+plot(lmr)
+```
+
 
 ## Model 2 SIM~GRIP
 
