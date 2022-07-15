@@ -74,34 +74,75 @@ plot(lmr)
 
 ### Now add in scatterplot
 
+```{r}
+plot(SIMS~GRIP,data=data)
+gp = lm(SIMS~GRIP,data=data)
+abline(gp)
+```
+
 
 ### Numerical results 
 
+```{r}
+cor(SIMS~GRIP,data=data)
+```
 
 ### Inferential  (Build model.2)
+
+```{r}
+summary(gp)
+newdata=c(GRIP=94, ARM=88)
+```
   
 
 #### predict model.2 at target point
 
+```{r}
+predictSIM = predict.lm(gp, newdata=data.frame(GRIP = 94, ARM = 88))
+print(predictSIM)
+```
+
 #### now add the model fit to our plot for model.2
   
-
+```{r}
+plot(gp)
+```
 
 ## Model 3 SIM~ARM+GRIP
 
+
 ### Numerical results (cor)
 
-`
+```{r}
+data2=lm(SIMS~ARM+GRIP,data=data)
+summary(data2)
+```
   
 ### Inferential  (Build 2-dimentional model.3)
 
 #### predict model.3 at target point
   
+```{r}
+predict.lm(data2, newdata=data.frame(GRIP=94, ARM=88))
+```
+  
 
 ## Comparing nested models ANOVA Test
 
 ### Model.1 vs Model.3
+
+```{r}
+anova(lmr, data2)
+```
+
 ### Model.2 vs Model.3
 
+```{r}
+anova(gp, data2)
+```
+
 ## Informally compare Model.1 with model.2
+
+
+
 
