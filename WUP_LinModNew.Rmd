@@ -40,13 +40,16 @@ plot(SIMS~ARM,data=data)
 lmr = lm(SIMS~ARM,data=data)
 abline(lmr)
 ```
+  
+The scatter plot for the model is SIMS-AMRS. ARM is the x-axis and SIMS is the y-axis with a positive linear correlation.
 
 ### Numerical results
 
 ```{r}
 cor(SIMS~ARM,data=data)
 ```
-
+  
+The correlation is 0.6860, the line is positive.    
 
 ### Inferential  (Build model.1)
 
@@ -54,22 +57,26 @@ cor(SIMS~ARM,data=data)
 summary(lmr)
 newdata=c(GRIP=94, ARM=88)
 ```
-
+  
+Residuals show 1.226 and 145 degrees of freesom. The p-value is 0.00000000000000022 and the adjusted r-square is 0.467.   
+   
 #### Predict at target point
 
 ```{r}
 predictSIM = predict.lm(lmr, newdata=data.frame(GRIP = 94, ARM = 88))
 print(predictSIM)
 ```
-
-
+  
+The predicted target point is positive 0.71.
+  
 #### scatterplot with model fit
     
 ```{r}
 plot(lmr)
 ```
-
-
+  
+The standardized residuals normal Q-Q graph shows a positive correlation. The plot graphs run horizotal or at a zero slope.
+  
 ## Model 2 SIM~GRIP
 
 ### Now add in scatterplot
@@ -79,13 +86,16 @@ plot(SIMS~GRIP,data=data)
 gp = lm(SIMS~GRIP,data=data)
 abline(gp)
 ```
-
-
+  
+The scatter plots shows GRIP on the x-axis and SIMS on the y-axis. SIM-GRIP shows a positive linear correlation.    
+  
 ### Numerical results 
 
 ```{r}
 cor(SIMS~GRIP,data=data)
 ```
+  
+0.6398458 is the correaltion for SIM-GRIP, slightly lower than the correlation between SIMS-ARM.
 
 ### Inferential  (Build model.2)
 
@@ -94,19 +104,24 @@ summary(gp)
 newdata=c(GRIP=94, ARM=88)
 ```
   
-
+Residuals show 1.295, which is slightly higher thatn GRIP-ARM. The p-value is 0.00000000000000022 and the adjusted r-square 0.4053.  
+  
 #### predict model.2 at target point
 
 ```{r}
 predictSIM = predict.lm(gp, newdata=data.frame(GRIP = 94, ARM = 88))
 print(predictSIM)
 ```
+ 
+The target point is -0.5361543.
   
 #### now add the model fit to our plot for model.2
   
 ```{r}
 plot(gp)
 ```
+  
+The standardized residual normal Q-Q graph shows a positive correlation. The remaining plot grpah shows a negative slop.
 
 ## Model 3 SIM~ARM+GRIP
 
@@ -118,6 +133,8 @@ data2=lm(SIMS~ARM+GRIP,data=data)
 summary(data2)
 ```
   
+The residual is 2.288 a number significantly higher than SIMS-ARM and SIMS-GRIP, but the adjusted r-squared is the lowest when compared to both models. The p-value is 0.0000000000000002 and the adjusted r-sqaured is 0.5358.
+  
 ### Inferential  (Build 2-dimentional model.3)
 
 #### predict model.3 at target point
@@ -126,6 +143,7 @@ summary(data2)
 predict.lm(data2, newdata=data.frame(GRIP=94, ARM=88))
 ```
   
+The target point is 0.149676.  
 
 ## Comparing nested models ANOVA Test
 
@@ -134,15 +152,19 @@ predict.lm(data2, newdata=data.frame(GRIP=94, ARM=88))
 ```{r}
 anova(lmr, data2)
 ```
+  
+The residual degrees of freedom (Res. Df) are 145. The residual sum of square (RSS) add up to 217 errors were reduced by 29.54 which has less errors in model2. Therefore model2 is the best model.
 
 ### Model.2 vs Model.3
 
 ```{r}
 anova(gp, data2)
 ```
+  
+The residual degree of freedom (Res. Df) is 145. The residual sum of square (RSS) add up to 243.07. The errors were reduced by 54.639. Model2 is the better model. 
 
 ## Informally compare Model.1 with model.2
 
-
-
-
+Model1 and Model2 appear similar in that they are positive slope direction for the standardized residualnormal Q-Q plot. The remaining plots appear to be closer to a zero slope.
+The SIMS~GRIP correlation is 0.6398458 which is smaller than the SIMS~ARM correlation of 0.6860073 a
+difference of 0.0461615. Both model1 and model2 have residuals degree of freedom of 145. Model1 has a residual sum of squares of 217.88. Model2 has a residual sum of squares 243.07. The difference is 25.19
